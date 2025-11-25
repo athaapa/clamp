@@ -1,0 +1,60 @@
+# This file defines the project using the Poetry tool's configuration.
+
+[build-system]
+# Poetry uses its own build backend for consistency and advanced features.
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "clamp-rag"
+version = "1.0.2"
+authors = ["Clamp Team"]
+description = "Git-like version control for RAG vector databases"
+readme = "README.md"
+license = "MIT"
+homepage = "https://github.com/athaapa/clamp-monorepo"
+repository = "https://github.com/athaapa/clamp-monorepo"
+keywords = ["rag", "vector-database", "qdrant", "version-control", "llm"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+packages = [{include = "clamp"}]
+
+# --- CORE DEPENDENCIES (Runtime) ---
+[tool.poetry.dependencies]
+python = ">=3.10, <3.14"
+httpx = "^0.27.0"
+typer = {version = "^0.9.0", extras = ["all"]}
+qdrant-client = "^1.7.0"
+click = "^8.1.7"
+# Note: Typer often needs extras, check if "all" or "rich" is needed.
+
+# --- DEVELOPMENT DEPENDENCIES ---
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0.0"
+pytest-asyncio = "^0.21.0"
+pytest-cov = "^4.1.0"
+black = "^23.0.0"
+mypy = "^1.0.0"
+
+# --- SCRIPTS / ENTRY POINTS ---
+# This replaces the [project.scripts] section
+[tool.poetry.scripts]
+clamp = "src.cli:cli"
+
+# --- TOOL CONFIGURATION (Poetry is tool-agnostic here, so Pytest config remains the same) ---
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]

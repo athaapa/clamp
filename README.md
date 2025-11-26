@@ -1,74 +1,73 @@
 # Clamp - Version Control for RAG
 
-Git-like versioning for vector databases.
+Git-like versioning for vector databases. Rollback your knowledge base without losing data.
 
 ## Install
 ```
 pip install clamp-rag
 ```
-## Quick Start
-```Python
-from qdrant_client import QdrantClient, models
 
-from clamp import ClampClient
-
-# Local Qdrant instance
-qdrant = QdrantClient(":memory:")
-
-# Create a test collection (you might need to set up the schema properly)
-qdrant.create_collection(
-    collection_name="test_docs",
-    vectors_config=models.VectorParams(
-        size=384, distance=models.Distance.COSINE
-    ),  # adjust as needed
-)
-
+## Quick Start (CLI)
+```
 # Initialize Clamp
-clamp_client = ClampClient(qdrant)
+clamp init
 
-# Ingest v1
-docs_v1 = [{"text": "First version", "vector": [0.1] * 384}]  # dummy vector
-commit1 = clamp_client.ingest(
-    collection="test_docs", group="docs", documents=docs_v1, message="Initial version"
-)
-print(f"Commit 1: {commit1}")
+# Track document versions
+clamp ingest docs my_group "Added initial docs"
 
-# Ingest v2
-docs_v2 = [{"text": "Second version", "vector": [0.2] * 384}]
-commit2 = clamp_client.ingest(
-    collection="test_docs", group="docs", documents=docs_v2, message="Updated docs"
-)
-print(f"Commit 2: {commit2}")
+# View commit history
+clamp history my_group
 
-# Check status
-status = clamp_client.status(collection="test_docs", group="docs")
-print(f"Current status: {status}")
+# Check current version
+clamp status my_group
 
-# Rollback to v1
-clamp_client.rollback(collection="test_docs", group="docs", commit_hash=commit1)
-print("Rolled back to commit 1")
+# Rollback to previous commit
+clamp rollback my_group abc123
 
-# Verify rollback worked
-status_after = clamp_client.status(collection="test_docs", group="docs")
-print(f"Status after rollback: {status_after}")
-
-# Check history
-history = clamp_client.history(group="docs")
-print(f"History: {[h.hash[:8] for h in history]}")
+# List all tracked groups
+clamp groups
 ```
 
+Connection options:
+```
+clamp status my_group --host localhost --port 6333 --collection docs --db-path ~/.clamp/db.sqlite
+```
+
+## Python API
+```python
+from qdrant_client import QdrantClient
+from clamp import ClampClient
+
+qdrant = QdrantClient("localhost", port=6333)
+clamp = ClampClient(qdrant)
+
+# Ingest with versioning
+commit = clamp.ingest(
+    collection="docs",
+    group="my_group",
+    documents=[{"text": "...", "vector": [...]}],
+    message="Initial version"
+)
+
+# Rollback
+clamp.rollback(collection="docs", group="my_group", commit_hash=commit)
+
+# View history
+clamp.history(group="my_group")
+```
 
 ## How It Works
-- Versions are tracked via metadata in your vector DB
-- Rollbacks flip active/inactive flags (no data movement)
+- Versions stored as separate points in Qdrant
+- Metadata tracks commit hashes and active state  
+- Rollback = flip active flags (instant, no data movement)
 - Local SQLite stores commit history
+
+## Status
+⚠️ Early alpha. Qdrant only. Expect bugs.
 
 ## Requirements
 - Qdrant (local or cloud)
 - Python 3.10+
 
-## Status
-Early alpha. Qdrant only. Expect bugs.
-
-## License
-MIT
+# License
+MIT - see [LICENSE](https://github.com/athaapa/clamp/blob/8514e7a86fc34378ea37aee915ca079935f9af5b/LICENSE) for more details.

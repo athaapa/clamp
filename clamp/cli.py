@@ -11,7 +11,7 @@ from .client import ClampClient
 
 
 @click.group()
-@click.version_option(version="1.0.0", prog_name="clamp")
+@click.version_option(version="1.0.4", prog_name="clamp")
 def cli():
     """Clamp: Git-like version control for RAG vector databases.
 
@@ -272,6 +272,14 @@ def rollback(
 
         # Get current status
         status_info = clamp.status(collection, group)
+
+        # Check if there's an active deployment
+        if not status_info.get("active_commit"):
+            click.echo(
+                f"Error: No active deployment found for group '{group}'. Cannot rollback.",
+                err=True,
+            )
+            sys.exit(1)
 
         if status_info["active_commit"] == full_hash:
             click.echo(f"Warning: Already at commit {full_hash[:8]}")

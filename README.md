@@ -39,10 +39,10 @@ from qdrant_client import QdrantClient
 from clamp import ClampClient
 
 qdrant = QdrantClient("localhost", port=6333)
-clamp = ClampClient(qdrant)
+clamp_client = ClampClient(qdrant)
 
 # Ingest with versioning
-commit = clamp.ingest(
+commit = clamp_client.ingest(
     collection="docs",
     group="my_group",
     documents=[{"text": "...", "vector": [...]}],
@@ -50,10 +50,10 @@ commit = clamp.ingest(
 )
 
 # Rollback
-clamp.rollback(collection="docs", group="my_group", commit_hash=commit)
+clamp_client.rollback(collection="docs", group="my_group", commit_hash=commit)
 
 # View history
-clamp.history(group="my_group")
+clamp_client.history(group="my_group")
 ```
 
 ## How It Works

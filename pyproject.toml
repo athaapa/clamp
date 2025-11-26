@@ -7,7 +7,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "clamp-rag"
-version = "1.0.2"
+version = "1.0.3"
 authors = ["Clamp Team"]
 description = "Git-like version control for RAG vector databases"
 readme = "README.md"

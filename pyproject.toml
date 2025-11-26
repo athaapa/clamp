@@ -7,7 +7,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "clamp-rag"
-version = "1.0.3"
+version = "1.0.4"
 authors = ["Clamp Team"]
 description = "Git-like version control for RAG vector databases"
 readme = "README.md"
@@ -49,7 +49,7 @@ mypy = "^1.0.0"
 # --- SCRIPTS / ENTRY POINTS ---
 # This replaces the [project.scripts] section
 [tool.poetry.scripts]
-clamp = "src.cli:cli"
+clamp = "clamp.cli:cli"
 
 # --- TOOL CONFIGURATION (Poetry is tool-agnostic here, so Pytest config remains the same) ---
 [tool.pytest.ini_options]

@@ -3,12 +3,12 @@
 Git-like versioning for vector databases. Rollback your knowledge base without losing data.
 
 ## Install
-```
+```bash
 pip install clamp-rag
 ```
 
 ## Quick Start (CLI)
-```
+```bash
 # Initialize Clamp
 clamp init
 
@@ -29,7 +29,7 @@ clamp groups
 ```
 
 Connection options:
-```
+```bash
 clamp status my_group --host localhost --port 6333 --collection docs --db-path ~/.clamp/db.sqlite
 ```
 

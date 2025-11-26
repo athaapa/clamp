@@ -332,6 +332,7 @@ class ClampClient:
             return {
                 "group": group,
                 "active_commit": None,
+                "active_commit_short": None,
                 "active_count": 0,
                 "message": "No deployment found",
             }

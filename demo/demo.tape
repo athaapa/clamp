@@ -53,9 +53,9 @@ Type "echo 'Refund policy: 30-day returns allowed' > docs_v1.txt"
 Enter
 Sleep 500ms
 
-# Ingest v1 (important - slower)
+# Commit v1 (important - slower)
 Set TypingSpeed 60ms
-Type "clamp ingest docs_v1.txt policies 'v1: Initial policy'"
+Type "clamp commit docs_v1.txt policies 'v1: Initial policy'"
 Enter
 Sleep 1.5s
 
@@ -74,7 +74,7 @@ Enter
 Sleep 500ms
 
 Set TypingSpeed 60ms
-Type "clamp ingest docs_v2.txt policies 'v2: Policy update'"
+Type "clamp commit docs_v2.txt policies 'v2: Policy update'"
 Enter
 Sleep 1.5s
 
@@ -84,12 +84,12 @@ Enter
 Sleep 2.5s
 
 # Narration: The fix (dramatic, slow)
-Type "# Production is broken! Rolling back..."
+Type "# Production is broken! Checking out previous version..."
 Enter
 Sleep 1s
 
 Set TypingSpeed 100ms
-Type "clamp rollback policies HEAD~1 -f"
+Type "clamp checkout policies HEAD~1 -f"
 Enter
 Sleep 2s
 
@@ -104,6 +104,6 @@ Enter
 Sleep 3s
 
 # Narration: Success
-Type "# Instant rollback. Crisis averted."
+Type "# Instant checkout. Crisis averted."
 Enter
 Sleep 2s

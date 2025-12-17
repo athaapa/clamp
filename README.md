@@ -18,9 +18,9 @@ pip install clamp-rag
 # Initialize Clamp
 clamp init
 
-# Create and track a document
+# Create and commit a document
 echo "Your document content" > docs.txt
-clamp ingest docs.txt my_group "Added initial docs"
+clamp commit docs.txt my_group "Added initial docs"
 
 # View commit history
 clamp history my_group
@@ -28,8 +28,8 @@ clamp history my_group
 # Check current version
 clamp status my_group
 
-# Rollback to previous commit
-clamp rollback my_group HEAD~1   # or use commit hash
+# Checkout previous commit
+clamp checkout my_group HEAD~1   # or use commit hash
 
 # List all tracked groups
 clamp groups
@@ -40,7 +40,7 @@ Vector DBs get stale when docs update. Old embeddings cause semantic conflicts i
 
 Clamp adds git-style versioning:
 - Commit your knowledge base
-- Rollback instantly (no re-embed, no data copy, just metadata flags)
+- Checkout any version instantly (no re-embed, no data copy, just metadata flags)
 - Works on Qdrant (local sqlite history)
 
 ## Python API
@@ -73,7 +73,7 @@ clamp_client.history(group="my_group")
 - Local SQLite stores commit history
 
 ## Status
-🚀 v1.1.0 - Beta. Qdrant support only.
+🚀 v1.2.0 - Beta. Qdrant support only.
 
 ## Requirements
 - Qdrant (local or cloud)

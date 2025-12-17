@@ -89,7 +89,7 @@ def common_options(f):
 
 
 @click.group()
-@click.version_option(version="1.1.0", prog_name="clamp")
+@click.version_option(version="1.2.0", prog_name="clamp")
 def cli():
     """Clamp: Git-like version control for RAG vector databases.
 
@@ -135,7 +135,7 @@ def init(db_path: str):
 @click.option("--author", "-a", default=None, help="Commit author name")
 @click.option("--collection", "-c", default=None, help="Collection name (default: group name)")
 @common_options
-def ingest(
+def commit(
     file: str,
     group: str,
     message: str,
@@ -145,10 +145,10 @@ def ingest(
     port: int,
     db_path: str,
 ):
-    """Ingest a document file into version control.
+    """Commit a document file to version control.
 
     Example:
-        clamp ingest docs.txt my_docs "Initial commit"
+        clamp commit docs.txt my_docs "Initial commit"
     """
     try:
         # Use group name as collection if not specified
@@ -306,7 +306,7 @@ def history(
 @click.option("--collection", "-c", default=None, help="Collection name (default: group name)")
 @click.option("--force", "-f", is_flag=True, help="Skip confirmation")
 @common_options
-def rollback(
+def checkout(
     group: str,
     ref: str,
     collection: str,
@@ -315,13 +315,13 @@ def rollback(
     port: int,
     db_path: str,
 ):
-    """Rollback to a previous commit.
+    """Checkout a previous commit.
 
     REF can be a commit hash, short hash, HEAD, or HEAD~N.
 
     Examples:
-        clamp rollback my_docs HEAD~1
-        clamp rollback my_docs abc12345
+        clamp checkout my_docs HEAD~1
+        clamp checkout my_docs abc12345
     """
     try:
         collection = collection or group

@@ -60,5 +60,11 @@ packages/backend/contextflow.db-journal
 *.bak
 
 .env
-node_modules/clamp.db
 clamp.db
+
+# Clamp local database
+.clamp/
+
+# Demo temp files
+docs_v1.txt
+docs_v2.txt

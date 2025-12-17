@@ -73,7 +73,7 @@ clamp_client.history(group="my_group")
 - Local SQLite stores commit history
 
 ## Status
-🚀 v1.1.0 - Stable for Qdrant. Production-ready for single-node deployments.
+🚀 v1.1.0 - Beta. Qdrant support only.
 
 ## Requirements
 - Qdrant (local or cloud)

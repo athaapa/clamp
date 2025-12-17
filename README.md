@@ -18,8 +18,9 @@ pip install clamp-rag
 # Initialize Clamp
 clamp init
 
-# Track document versions
-clamp ingest docs my_group "Added initial docs"
+# Create and track a document
+echo "Your document content" > docs.txt
+clamp ingest docs.txt my_group "Added initial docs"
 
 # View commit history
 clamp history my_group
@@ -28,7 +29,7 @@ clamp history my_group
 clamp status my_group
 
 # Rollback to previous commit
-clamp rollback my_group abc123
+clamp rollback my_group HEAD~1   # or use commit hash
 
 # List all tracked groups
 clamp groups
@@ -72,7 +73,7 @@ clamp_client.history(group="my_group")
 - Local SQLite stores commit history
 
 ## Status
-⚠️ Early alpha. Qdrant only. Expect bugs.
+🚀 v1.1.0 - Stable for Qdrant. Production-ready for single-node deployments.
 
 ## Requirements
 - Qdrant (local or cloud)

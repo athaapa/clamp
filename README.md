@@ -2,6 +2,12 @@
 
 Git-like versioning for vector databases. Rollback your knowledge base without losing data.
 
+<p align="center">
+  <img src="demo/clamp_demo.gif" alt="Clamp Demo showing RAG rollback" width="100%">
+  <br>
+  <em>Watch Clamp revert a poisoned RAG index instantly without re-embedding.</em>
+</p>
+
 ## Install
 ```bash
 pip install clamp-rag
@@ -28,10 +34,13 @@ clamp rollback my_group abc123
 clamp groups
 ```
 
-Connection options:
-```bash
-clamp status my_group --host localhost --port 6333 --collection docs --db-path ~/.clamp/db.sqlite
-```
+## Why Clamp?
+Vector DBs get stale when docs update. Old embeddings cause semantic conflicts in RAG retrieval.
+
+Clamp adds git-style versioning:
+- Commit your knowledge base
+- Rollback instantly (no re-embed, no data copy, just metadata flags)
+- Works on Qdrant (local sqlite history)
 
 ## Python API
 ```python
